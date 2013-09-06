@@ -14,7 +14,7 @@ pkgrel=1
 arch=('armv7h')
 url="https://github.com/Xilinx/linux-xlnx"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'uboot-mkimage')
+makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'uboot-mkimage' 'kernel26-headers')
 options=('!strip')
 source=("https://github.com/Xilinx/linux-xlnx/archive/${_commit}.tar.gz"
         'config')
