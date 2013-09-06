@@ -1,13 +1,14 @@
-# ZedBoard
-# Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
+# ZC702
+# Maintainer: Martin Kammerhofer <kammerhoferATtugrazDOTat>
 
 buildarch=4
 
-pkgbase=linux-zedboard
+pkgbase=linux-zc702
 _commit=3f7c2d54957e950b3a36a251578185bfd374562c
 _srcname=linux-xlnx-${_commit}
 _kernelname=${pkgbase#linux}
-_desc="ZedBoard"
+_desc="Xilinx ZC702 Evaluation Kit"
+_dvb_headers=	# do not copy DVB headers
 pkgver=3.9.0
 pkgrel=1
 arch=('armv7h')
@@ -18,7 +19,7 @@ options=('!strip')
 source=("https://github.com/Xilinx/linux-xlnx/archive/${_commit}.tar.gz"
         'config')
 md5sums=('7f67e0aab5c3a94486991e070968d06b'
-         'ade982c9508ef1bafa84881d432ac4ab')
+         '65e25986253fc926e04f296db66164bf')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
@@ -59,7 +60,7 @@ build() {
   #yes "" | make config
 
   # build!
-  make ${MAKEFLAGS} UIMAGE_LOADADDR=0x8000 uImage modules zynq-zed.dtb
+  make ${MAKEFLAGS} UIMAGE_LOADADDR=0x8000 uImage modules zynq-zc702.dtb
 }
 
 _package() {
@@ -83,7 +84,7 @@ _package() {
   make INSTALL_MOD_PATH="${pkgdir}" modules_install
   cp arch/$KARCH/boot/uImage "${pkgdir}/boot/uImage"
   cp arch/$KARCH/boot/dts/*.dtb "${pkgdir}/boot/dtbs"
-  cp arch/$KARCH/boot/dts/zynq-zed.dtb "${pkgdir}/boot/devicetree.dtb"
+  cp arch/$KARCH/boot/dts/zynq-zc702.dtb "${pkgdir}/boot/devicetree.dtb"
 
   # set correct depmod command for install
   sed \
@@ -197,6 +198,7 @@ _package-headers() {
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/"
   cp net/mac80211/*.h "${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/"
 
+if [ -n "${_dvb_headers}" ] ; then
   # add dvb headers for external modules
   # in reference to:
   # http://bugs.archlinux.org/task/9912
@@ -223,6 +225,7 @@ _package-headers() {
   cp drivers/media/dvb-frontends/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-frontends/"
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/tuners"
   cp drivers/media/tuners/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/tuners/"
+fi	# _dvb_headers
 
   # add xfs and shmem for aufs building
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/fs/xfs"
