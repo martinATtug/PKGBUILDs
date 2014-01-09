@@ -20,7 +20,7 @@ options=('!strip')
 source=("https://github.com/Trenz-Electronic/linux-te-3.9/archive/${_commit}.tar.gz"
         'config')
 md5sums=('8c417b05d5bd950e76e9ec3fc74ab8ef'
-         '5472bb94913291c268214c12246fb491')
+         '29e79ccde48797aafedba33d230b6e34')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
