@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-gigazee
-KERNEL_VERSION=3.9.0-7-TUGRAZ
+KERNEL_VERSION=3.9.0-8-TUGRAZ
 
 post_install () {
   # updating module dependencies
