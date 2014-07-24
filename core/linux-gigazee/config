@@ -157,6 +157,13 @@ CONFIG_PERF_EVENTS=y
 CONFIG_VM_EVENT_COUNTERS=y
 CONFIG_PCI_QUIRKS=y
 CONFIG_COMPAT_BRK=y
+##
+## NB: Using SLUB has caused serious problems with a
+## core recurrently stuck in select(2) burning cycles in
+## __kmalloc_track_caller. Changing from SLUB to SLAB
+## fixed this.
+##		2014-07-24 Martin Kammerhofer
+## 
 CONFIG_SLAB=y
 # CONFIG_SLUB is not set
 # CONFIG_SLOB is not set
