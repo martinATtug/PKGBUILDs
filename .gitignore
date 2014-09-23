@@ -2,3 +2,5 @@
 .DS_Store
 *.pkg.tar.gz
 *.pkg.tar.xz
+aur/python2-h5py/h5py-*.tar.gz
+aur/remserial/remserial-*.tar.gz
