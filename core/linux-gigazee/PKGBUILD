@@ -11,7 +11,7 @@ _kernelname=${pkgbase#linux}
 _desc="Trenz Electronic GigaZee TE0720 Zynq Module"
 _dvb_headers=	# do not copy DVB headers
 pkgver=3.9.0
-pkgrel=9
+pkgrel=10
 arch=('armv7h')
 url="https://github.com/Trenz-Electronic/linux-te-3.9"
 license=('GPL2')
@@ -20,7 +20,7 @@ options=('!strip')
 source=("https://github.com/Trenz-Electronic/linux-te-3.9/archive/${_commit}.tar.gz"
         'config')
 md5sums=('8c417b05d5bd950e76e9ec3fc74ab8ef'
-         'f626d37aba29074ab2e60a2fcac701c0')
+         'a5285921ea7577f85f5b2580bb4d9ffe')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
