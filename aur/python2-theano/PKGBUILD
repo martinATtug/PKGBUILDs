@@ -1,0 +1,52 @@
+# Current maintainer: Santi Villalba <sdvillal@gmail.com>
+# Original maintainer: Thomas Dziedzic < gostrc at gmail >
+# Modified by: Cristóvão D. Sousa <crisjss@gmail.com>
+
+pkgname=python2-theano
+pkgver=0.6.0
+pkgrel=1
+pkgdesc='A Python library that allows you to define, optimize, and evaluate mathematical expressions involving multi-dimensional arrays efficiently.'
+arch=('any')
+url='http://www.deeplearning.net/software/theano/'
+license=('BSD')
+depends=('python2-numpy' 'python2-scipy' 'blas')
+optdepends=('python2-pycuda: for using the gpu backend')
+makedepends=('python2-distribute')
+checkdepends=('python2-nose')
+source=("http://pypi.python.org/packages/source/T/Theano/Theano-${pkgver}.tar.gz")
+md5sums=('44df6c476d8012290a2d5bb66611126a')
+
+
+build() {
+  cd Theano-${pkgver}
+
+  # fix hardcoded magic bits
+  find \
+    -name '*\.py' \
+    -exec sed -e 's_#!/usr/bin/env python_&2_' -e 's_#!/usr/bin/python_&2_' -i {} \;
+
+  python2 setup.py build
+}
+
+check() {
+
+  cd Theano-${pkgver}
+  # -----------
+  # The test suite will fail as theano devs have some "KnownFailureTest" tests in place
+  # -----------
+  # THEANO_FLAGS='device=cpu' nosetests2
+}
+
+package() {
+  cd Theano-${pkgver}
+
+  python2 setup.py install \
+    --root=${pkgdir} \
+    --optimize=1
+
+  chmod o+r -R ${pkgdir}
+
+  install -d ${pkgdir}/usr/share/licenses/python2-theano
+  install -m644 LICENSE.txt \
+    ${pkgdir}/usr/share/licenses/python2-theano
+}
